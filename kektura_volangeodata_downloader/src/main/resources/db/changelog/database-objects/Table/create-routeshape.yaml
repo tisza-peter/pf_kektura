@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-shape-linestring-table
+      author: tiszapeter
+      changes:
+        - createTable:
+            tableName: shape_route
+            schemaName: geom_public
+            columns:
+              - column:
+                  name: shape_id
+                  type: VARCHAR(100)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: shape_geometry
+                  type: GEOMETRY(LINESTRING, 4326)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - sql:
+            sql: COMMENT ON TABLE geom_public.shape_route IS 'GTFS shape koordinátáiból készült vonalak geometriai reprezentációja LINESTRING formátumban'
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE INDEX IF NOT EXISTS idx_shape_geometries_geom
+              ON geom_public.shape_route
+              USING GIST (shape_geometry);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE geom_staging.shape_route (LIKE geom_public.shape_route INCLUDING ALL);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE geom_backup.shape_route (LIKE geom_public.shape_route INCLUDING ALL);

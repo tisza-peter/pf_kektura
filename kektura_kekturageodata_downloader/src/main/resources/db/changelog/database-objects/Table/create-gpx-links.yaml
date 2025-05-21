@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: tiszapeter
+      changes:
+        - createTable:
+            tableName: gpx_links
+            schemaName: kekturahu
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: link_path
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false

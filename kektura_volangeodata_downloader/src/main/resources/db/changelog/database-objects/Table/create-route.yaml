@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-routes
+      author: you
+      changes:
+        - createTable:
+            tableName: routes
+            schemaName: gtfs_public
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false            
+              - column: { name: agency_id, type: varchar(255) }
+              - column: { name: route_id, type: varchar(255) }
+              - column: { name: route_short_name, type: varchar(255) }
+              - column: { name: route_long_name, type: varchar(255) }
+              - column: { name: route_type, type: integer }
+              - column: { name: route_url, type: varchar(255) }
+              - column: { name: route_color, type: varchar(255) }
+              - column: { name: route_text_color, type: varchar(255) }
+              - column: { name: route_network, type: varchar(255) }
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_staging.routes (LIKE gtfs_public.routes INCLUDING ALL);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_backup.routes (LIKE gtfs_public.routes INCLUDING ALL);              

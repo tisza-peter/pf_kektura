@@ -1,0 +1,4 @@
+databaseChangeLog:
+- include:
+    file: releases/changelog.yaml
+    relativeToChangelogFile: true

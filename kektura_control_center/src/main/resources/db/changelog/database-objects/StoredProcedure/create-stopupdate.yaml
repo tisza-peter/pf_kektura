@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-update-stop-geometries-procedure
+      author: tiszapeter
+      runOnChange: true
+      runAlways: true
+      changes:
+        - createProcedure:
+            procedureName: update_stop_geometries
+            schemaName: geom_staging
+            procedureBody: |
+              CREATE OR REPLACE PROCEDURE geom_staging.update_stop_geometries()
+              LANGUAGE plpgsql
+              AS $$
+              BEGIN
+                -- Ideiglenes tábla ürítése
+                TRUNCATE TABLE geom_staging.shape_stop;
+               
+                -- Adatok migrálása a táblába
+                INSERT INTO geom_staging.shape_stop (stop_id, stop_geometry)
+                SELECT stop_id, ST_SetSRID(ST_MakePoint(stop_lon,stop_lat), 4326) as stop_point FROM gtfs_staging.stops;
+               
+                -- Opcionális: statisztikák frissítése
+                ANALYZE geom_staging.shape_stop;
+              END;
+              $$;

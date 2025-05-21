@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  test-runner:
+    build: .
+    container_name: cucumber-playwright
+    volumes:
+      - .:/tests
+    tty: true

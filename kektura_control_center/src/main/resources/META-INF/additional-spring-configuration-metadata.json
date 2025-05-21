@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "geoserver.host",
+    "type": "java.lang.String",
+    "description": "A description for 'geoserver.host'"
+  },
+  {
+    "name": "geoserver.port",
+    "type": "java.lang.String",
+    "description": "A description for 'geoserver.port'"
+  }
+]}

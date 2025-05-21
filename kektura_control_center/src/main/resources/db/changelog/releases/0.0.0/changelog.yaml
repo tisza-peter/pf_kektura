@@ -1,0 +1,12 @@
+
+databaseChangeLog:
+  - include:
+      file: ../../database-objects/Schema/create-geoserver.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: ../../database-objects/Table/create-sql-view-layer.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: insert-default-sqlview-layers-to-volan.yaml
+      relativeToChangelogFile: true
+

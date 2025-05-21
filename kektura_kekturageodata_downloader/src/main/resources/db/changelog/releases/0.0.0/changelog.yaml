@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: ../../database-objects/Schema/create-kekturahu.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: ../../database-objects/Table/create-gpx-links.yaml
+      relativeToChangelogFile: true
+

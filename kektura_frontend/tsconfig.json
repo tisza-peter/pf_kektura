@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+      "experimentalDecorators": true,
+      "strict": true,
+      "baseUrl": "./",
+      "outDir": "./out-tsc/app",
+      "paths": {},
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitOverride": true,
+      "noPropertyAccessFromIndexSignature": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "target": "ES2022",
+      "useDefineForClassFields": false,
+      "module": "ES2022",
+      "moduleResolution": "node",
+      "importHelpers": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "types": []
+    },
+  "files": ["src/main.ts","src/polyfills.ts"],
+  "include": ["src/**/*.d.ts"]
+  }

@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: tiszapeter
+      changes:
+        - createTable:
+            tableName: sql_view_layer
+            schemaName: geoserver
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: store_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: layer_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sql_statement
+                  type: VARCHAR(2000)
+                  constraints:
+                    nullable: false                                        
+              - column:
+                  name: last_update
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_execution
+                  type: DATETIME
+                  constraints:
+                    nullable: true

@@ -1,0 +1,49 @@
+databaseChangeLog:
+- include:
+    file: ../../database-objects/Extension/create-postgis.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Schema/create-gtfs.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-agency.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-calendardate.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-calendar.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-feedinfo.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-route.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-shape.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-stoptime.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-stop.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-trip.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Schema/create-geom.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-routeshape.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/StoredProcedure/create-routeupdate.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/Table/create-stopshape.yaml
+    relativeToChangelogFile: true
+- include:
+    file: ../../database-objects/StoredProcedure/create-stopupdate.yaml
+    relativeToChangelogFile: true

@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-geoserver-schema
+      author: tiszapeter
+      changes:
+        - sql:
+            splitStatements: false
+            sql: CREATE SCHEMA IF NOT EXISTS geoserver;

@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-stop_times
+      author: tiszapeter
+      changes:
+        - sql: |
+            CREATE TABLE gtfs_public.stop_times (
+              id UUID PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+              trip_id VARCHAR(255),
+              stop_id VARCHAR(255),
+              arrival_time BIGINT,
+              departure_time BIGINT,
+              arrival_time_interval INTERVAL GENERATED ALWAYS AS (make_interval(secs => arrival_time)) STORED,
+              departure_time_interval INTERVAL GENERATED ALWAYS AS (make_interval(secs => departure_time)) STORED,
+              stop_sequence INTEGER,
+              pickup_type INTEGER,
+              drop_off_type INTEGER,
+              shape_dist_traveled REAL
+            );
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_staging.stop_times (LIKE gtfs_public.stop_times INCLUDING ALL);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_backup.stop_times (LIKE gtfs_public.stop_times INCLUDING ALL);              

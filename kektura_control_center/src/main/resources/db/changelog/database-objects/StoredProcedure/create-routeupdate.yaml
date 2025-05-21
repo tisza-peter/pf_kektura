@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-update-shape-geometries-procedure
+      author: tiszapeter
+      runOnChange: true
+      runAlways: true
+      changes:
+        - createProcedure:
+            procedureName: update_shape_geometries
+            schemaName: geom_staging
+            procedureBody: |
+              CREATE OR REPLACE PROCEDURE geom_staging.update_shape_geometries()
+              LANGUAGE plpgsql
+              AS $$
+              BEGIN
+                -- Tábla ürítése
+                TRUNCATE TABLE geom_staging.shape_route;
+               
+                -- Adatok migrálása a táblába
+                INSERT INTO geom_staging.shape_route (shape_id, shape_geometry)
+                SELECT
+                  shape_id,
+                  ST_MakeLine(
+                    ST_GeomFromText(
+                      concat('POINT(', shape_pt_lon, ' ', shape_pt_lat, ')'),
+                      4326
+                    )
+                    ORDER BY shape_pt_sequence
+                  ) AS geometry
+                FROM gtfs_staging.shapes
+                GROUP BY shape_id;
+               
+                -- Opcionális: statisztikák frissítése
+                ANALYZE geom_staging.shape_route;
+              END;
+              $$;

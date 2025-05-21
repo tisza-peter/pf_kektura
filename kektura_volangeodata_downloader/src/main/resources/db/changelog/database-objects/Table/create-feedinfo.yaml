@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-feed_info
+      author: tiszapeter
+      changes:
+        - createTable:
+            tableName: feed_info
+            schemaName: gtfs_public
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false            
+              - column: { name: feed_id, type: varchar(255) }
+              - column: { name: feed_publisher_name, type: varchar(255) }
+              - column: { name: feed_publisher_url, type: varchar(255) }
+              - column: { name: feed_lang, type: varchar(255) }
+              - column: { name: feed_start_date, type: date }
+              - column: { name: feed_end_date, type: date }
+              - column: { name: feed_version, type: varchar(255) }
+              - column: { name: feed_includes_prefixed_ids, type: boolean }
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_staging.feed_info (LIKE gtfs_public.feed_info INCLUDING ALL);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_backup.feed_info (LIKE gtfs_public.feed_info INCLUDING ALL);              

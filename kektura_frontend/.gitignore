@@ -1,0 +1,29 @@
+# Node modules
+node_modules/
+
+# Build output
+/dist/
+/out-tsc/
+
+/tmp/
+/temp/
+/*.log
+
+# Angular specific
+.angular/
+/.angular-cache/
+coverage/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment files (csak ha nem akarod verziókezelni, pl. API kulcsok miatt)
+# src/environments/environment.prod.ts
+# src/environments/environment.ts
+
+# System files
+.DS_Store
+Thumbs.db

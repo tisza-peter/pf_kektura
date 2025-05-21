@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-stops
+      author: tiszapeter
+      changes:
+        - createTable:
+            tableName: stops
+            schemaName: gtfs_public
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false            
+              - column: { name: stop_id, type: varchar(255) }
+              - column: { name: stop_name, type: varchar(255) }
+              - column: { name: stop_lat, type: real }
+              - column: { name: stop_lon, type: real }
+              - column: { name: location_type, type: integer }
+              - column: { name: parent_station, type: varchar(255) }
+              - column: { name: platform_code, type: integer }
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_staging.stops (LIKE gtfs_public.stops INCLUDING ALL);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_backup.stops (LIKE gtfs_public.stops INCLUDING ALL);              

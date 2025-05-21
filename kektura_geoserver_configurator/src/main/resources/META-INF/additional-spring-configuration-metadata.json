@@ -1,0 +1,52 @@
+{"properties": [
+  {
+    "name": "geoserver.url",
+    "type": "java.lang.String",
+    "description": "A description for 'geoserver.url'"
+  },
+  {
+    "name": "geoserver.username",
+    "type": "java.lang.String",
+    "description": "A description for 'geoserver.username'"
+  },
+  {
+    "name": "geoserver.password",
+    "type": "java.lang.String",
+    "description": "A description for 'geoserver.password'"
+  },
+  {
+    "name": "geoserver.workspace.name",
+    "type": "java.lang.String",
+    "description": "A description for 'geoserver.workspace.name'"
+  },
+  {
+    "name": "volan.db.host",
+    "type": "java.lang.String",
+    "description": "A description for 'volan.db.host'"
+  },
+  {
+    "name": "volan.db.port",
+    "type": "java.lang.String",
+    "description": "A description for 'volan.db.port'"
+  },
+  {
+    "name": "volan.db.username",
+    "type": "java.lang.String",
+    "description": "A description for 'volan.db.username'"
+  },
+  {
+    "name": "volan.db.database.name",
+    "type": "java.lang.String",
+    "description": "A description for 'volan.db.database.name'"
+  },
+  {
+    "name": "volan.db.password",
+    "type": "java.lang.String",
+    "description": "A description for 'volan.db.password'"
+  },
+  {
+    "name": "volan.store.name",
+    "type": "java.lang.String",
+    "description": "A description for 'volan.store.name'"
+  }
+]}

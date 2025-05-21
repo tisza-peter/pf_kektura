@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-stop-point-table
+      author: tiszapeter
+      changes:
+        - createTable:
+            tableName: shape_stop
+            schemaName: geom_public
+            columns:
+              - column:
+                  name: stop_id
+                  type: VARCHAR(100)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: stop_geometry
+                  type: GEOMETRY(POINT, 4326)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - sql:
+            sql: COMMENT ON TABLE geom_public.shape_stop IS 'GTFS stop koordinátáiból készült vonalak geometriai reprezentációja LINESTRING formátumban'
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE INDEX IF NOT EXISTS idx_stop_geometries_geom
+              ON geom_public.shape_stop
+              USING GIST (stop_geometry);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE geom_staging.shape_stop (LIKE geom_public.shape_stop INCLUDING ALL);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE geom_backup.shape_stop (LIKE geom_public.shape_stop INCLUDING ALL);

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-schemas
+      author: tiszapeter
+      changes:
+        - sql:
+            splitStatements: false
+            sql: CREATE SCHEMA IF NOT EXISTS gtfs_backup;
+        - sql:
+            splitStatements: false
+            sql: CREATE SCHEMA IF NOT EXISTS gtfs_staging;
+        - sql:
+            splitStatements: false
+            sql: CREATE SCHEMA IF NOT EXISTS gtfs_public;

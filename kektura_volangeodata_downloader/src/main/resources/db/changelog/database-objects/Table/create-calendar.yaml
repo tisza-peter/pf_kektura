@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-calendar
+      author: you
+      changes:
+        - createTable:
+            tableName: calendar
+            schemaName: gtfs_public
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false            
+              - column: { name: service_id, type: varchar(255) }
+              - column: { name: monday, type: integer }
+              - column: { name: tuesday, type: integer }
+              - column: { name: wednesday, type: integer }
+              - column: { name: thursday, type: integer }
+              - column: { name: friday, type: integer }
+              - column: { name: saturday, type: integer }
+              - column: { name: sunday, type: integer }
+              - column: { name: start_date, type: date }
+              - column: { name: end_date, type: date }
+              - column: { name: service_desc, type: varchar(2000) }
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_staging.calendar (LIKE gtfs_public.calendar INCLUDING ALL);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_backup.calendar (LIKE gtfs_public.calendar INCLUDING ALL);              

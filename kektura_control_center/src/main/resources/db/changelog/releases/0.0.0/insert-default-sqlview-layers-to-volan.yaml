@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-example
+      author: felhasznalonev
+      changes:
+        - sql:
+            splitStatements: true
+            endDelimiter: ';'
+            stripComments: true
+            sql: |
+              INSERT INTO geoserver.sql_view_layer(
+              store_name, layer_name, sql_statement, last_update, last_execution)
+              VALUES (
+              'volan', 
+              'unique_stops', 
+              'SELECT stop.stop_id AS id, stop_name, parent_station, stop_geometry AS geom FROM gtfs_public.stop INNER JOIN geom_public.shape_stop ON stop.stop_id = shape_stop.stop_id WHERE stop.location_type=0', 
+              now(), 
+              null);
+        - sql:
+            splitStatements: true
+            endDelimiter: ';'
+            stripComments: true
+            sql: |
+              INSERT INTO geoserver.sql_view_layer(
+              store_name, layer_name, sql_statement, last_update, last_execution)
+              VALUES (
+              'volan', 
+              'united_stops', 
+              'SELECT stop.stop_id AS id, stop_name, stop_geometry AS geom FROM gtfs_public.stop INNER JOIN geom_public.shape_stop ON stop.stop_id = shape_stop.stop_id WHERE stop.location_type=1', 
+              now(), 
+              null);
+        - sql:
+            splitStatements: true
+            endDelimiter: ';'
+            stripComments: true
+            sql: |
+              INSERT INTO geoserver.sql_view_layer(
+              store_name, layer_name, sql_statement, last_update, last_execution)
+              VALUES (
+              'volan', 
+              'routes', 
+              'SELECT trip.trip_id AS id, route_long_name AS route_name, shape_route.shape_geometry as geom FROM gtfs_public.route INNER JOIN gtfs_public.trip ON route.route_id=trip.route_id INNER JOIN geom_public.shape_route ON shape_route.shape_id=gtfs_public.trip.shape_id', 
+              now(), 
+              null);

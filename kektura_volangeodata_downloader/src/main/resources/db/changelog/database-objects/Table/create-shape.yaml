@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-shapes
+      author: tiszapeter
+      changes:
+        - createTable:
+            tableName: shapes
+            schemaName: gtfs_public
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false            
+              - column: { name: shape_id, type: varchar(255) }
+              - column: { name: shape_pt_sequence, type: integer }
+              - column: { name: shape_pt_lat, type: real }
+              - column: { name: shape_pt_lon, type: real }
+              - column: { name: shape_dist_traveled, type: real }
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_staging.shapes (LIKE gtfs_public.shapes INCLUDING ALL);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_backup.shapes (LIKE gtfs_public.shapes INCLUDING ALL);              

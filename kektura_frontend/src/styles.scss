@@ -1,0 +1,64 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  app-root, app-map, .map {
+    display: block;
+    height: 100%;
+  }
+
+  /* Közös vezérlő pozicionálás jobb alsó sarokba */
+.ol-zoom,
+.ol-rotate,
+.ol-attribution {
+  position: absolute;
+  bottom: 0.5em;
+  right: 0.5em;
+  left: auto !important;
+  top: auto !important;
+}
+
+/* Egymás alá rendezés */
+.ol-zoom {
+  margin-bottom: 2.2em;
+  margin-right: 2.5em; 
+  z-index: 1100;
+}
+
+.ol-rotate {
+  margin-bottom: 2.2em;
+  margin-right: 0.5em; 
+  z-index: 1100;
+}
+
+/* Egyedi attribution stílus */
+.ol-attribution.ol-custom-attribution {
+  background: rgba(255, 255, 255, 0.4) !important;
+  padding: 0.5em !important;
+  border-radius: 4px !important;
+  font-size: 0.8em !important;
+  line-height: 1.2em !important;
+  color: #333 !important;
+  font-family: Arial, sans-serif !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1000;
+}
+
+/* Attribution listázás */
+.ol-attribution.ol-custom-attribution li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ol-attribution.ol-custom-attribution li a {
+  text-decoration: none !important;
+  color: #0026ff !important;
+  transition: color 0.3s !important;
+}
+
+.ol-attribution.ol-custom-attribution li a:hover {
+  color: #ff0000 !important;
+}

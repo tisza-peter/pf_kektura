@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-calendar_dates
+      author: tiszapeter
+      changes:
+        - createTable:
+            tableName: calendar_dates
+            schemaName: gtfs_public
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false            
+              - column: { name: service_id, type: varchar(255) }
+              - column: { name: date, type: date }
+              - column: { name: exception_type, type: integer }
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_staging.calendar_dates (LIKE gtfs_public.calendar_dates INCLUDING ALL);
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: >
+              CREATE TABLE gtfs_backup.calendar_dates (LIKE gtfs_public.calendar_dates INCLUDING ALL);              
+              

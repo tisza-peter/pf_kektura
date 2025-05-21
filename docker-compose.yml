@@ -1,0 +1,295 @@
+version: '3.8'
+
+services:
+
+#OK
+  control-center-db:
+    build:
+      context: ./docker/postgres
+    container_name: control-center-db
+#    profiles:
+#      - full
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - pg-control-center-data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    networks:
+      - kektura-network
+
+#OK
+  kekturahu-db:
+    build:
+      context: ./docker/postgres
+    container_name: kekturahu-db
+#    profiles:
+#      - full
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - pg-kekturahu-data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - kektura-network
+
+#OK
+  volan-db:
+    build:
+      context: ./docker/postgres
+    container_name: volan-db
+#    profiles:
+#      - full
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - pg-volanhu-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - kektura-network
+
+#OK
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+  #  profiles:
+  #    - full
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8081:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - kektura-network
+
+#OK
+  geoserver:
+    image: docker.osgeo.org/geoserver:2.28.x
+    container_name: geoserver
+#    profiles:
+#      - full
+    environment:
+      - GEOSERVER_ADMIN_USER=admin
+      - GEOSERVER_ADMIN_PASSWORD=geoserver
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./volumes/geoserver-data:/opt/geoserver_data
+    restart: unless-stopped
+    networks:
+      - kektura-network
+
+#OK
+  frontend:
+    container_name: kektura-frontend
+#    profiles:
+#      - full
+    profiles:
+      - full
+    build:
+      context: ./kektura_frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "4200:80"
+#    depends_on:
+#      - control-center
+    networks:
+      - kektura-network
+
+#OK
+  eureka-server:
+    container_name: kektura-eureka-server
+#    profiles:
+#      - full
+    build:
+      context: ./kektura_eureka_server
+      dockerfile: ../docker/springboot/Dockerfile
+    ports:
+      - "8761:8080"
+    networks:
+      - kektura-network
+
+#OK
+  geoserver-configurator:
+    build:
+      context: ./kektura_geoserver_configurator
+      dockerfile: ../docker/springboot/Dockerfile
+    container_name: kektura_geoserver_configurator
+#    profiles:
+#      - full
+    ports:
+      - "8085:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - kektura-network
+
+
+#OK
+  control-center:
+    build:
+      context: ./kektura_control_center
+      dockerfile: ../docker/springboot/Dockerfile
+    container_name: kektura_control_center
+#    profiles:
+#      - full
+    ports:
+      - "8084:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - kektura-network
+
+#OK
+  kekturageodata-downloader:
+    build:
+      context: ./kektura_kekturageodata_downloader
+      dockerfile: ../docker/springboot/Dockerfile
+    container_name: kektura_kekturageodata_downloader
+#    profiles:
+#      - full
+    ports:
+      - "8086:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - kektura-network
+
+#OK
+  volangeodata-downloader:
+    build:
+      context: ./kektura_volangeodata_downloader
+      dockerfile: ../docker/springboot/Dockerfile
+    container_name: kektura_volangeodata_downloader
+#    profiles:
+#      - full
+    ports:
+      - "8087:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - kektura-network
+
+#OK
+  web-scraper:
+    build:
+      context: ./web_scraper
+      dockerfile: Dockerfile
+    container_name: web-scraper
+#    profiles:
+#      - full
+    depends_on:
+      - eureka-server
+    networks:
+      - kektura-network
+    ports:
+      - "4000:4000"
+
+#OK
+  gateway:
+    build:
+      context: ./kektura_gateway
+      dockerfile: ../docker/springboot/Dockerfile
+    container_name: kektura-gateway
+    profiles:
+      - full
+    ports:
+      - "8083:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - kektura-network
+
+  cucumber:
+    build:
+      context: ./docker/cucumber
+    container_name: cucumber-tests
+    profiles:
+      - full
+    depends_on:
+      - backend
+    networks:
+      - kektura-network
+
+#OK
+  zabbix-db:
+    image: postgres:16
+    container_name: zabbix-db
+    profiles:
+      - full
+    environment:
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: zabbix
+    volumes:
+      - zabbix-postgres:/var/lib/postgresql/data
+    networks:
+      - kektura-network
+
+#OK
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:alpine-6.4-latest
+    profiles:
+      - full
+    environment:
+      DB_SERVER_HOST: zabbix-db
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+    depends_on:
+      - zabbix-db
+    ports:
+      - "10051:10051"
+    networks:
+      - kektura-network
+
+#OK
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:alpine-6.4-latest
+    profiles:
+      - full
+    environment:
+      DB_SERVER_HOST: zabbix-db
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      ZBX_SERVER_HOST: zabbix-server
+      PHP_TZ: Europe/Budapest
+    depends_on:
+      - zabbix-server
+    ports:
+      - "8081:8080"
+    networks:
+      - kektura-network
+
+#OK
+  zabbix-agent:
+    image: zabbix/zabbix-agent:alpine-6.4-latest
+    profiles:
+      - full
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+    depends_on:
+      - zabbix-server
+    networks:
+      - kektura-network
+
+volumes:
+  pg-control-center-data:
+  pg-kekturahu-data:
+  pg-volanhu-data:
+  geoserver-data:
+  pgadmin-data:
+  zabbix-postgres:
+
+networks:
+  kektura-network:
+    driver: bridge

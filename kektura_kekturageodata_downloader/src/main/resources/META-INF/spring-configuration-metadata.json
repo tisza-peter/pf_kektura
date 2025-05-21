@@ -1,0 +1,11 @@
+{
+    "properties": [
+      {
+        "name": "kektura.hu.urls.url",
+        "type": "java.util.List<java.lang.String>",
+        "description": "List of webpage URLs to GPX file download links",
+        "sourceType": "hu.palferi.kektura.kektura_kekturageodata_downloader.config.UrlProperties"
+      }
+    ]
+  }
+  
