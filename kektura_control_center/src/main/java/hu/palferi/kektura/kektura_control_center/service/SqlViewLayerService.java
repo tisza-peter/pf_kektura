@@ -20,24 +20,21 @@ public class SqlViewLayerService {
     private final SqlViewLayerRepository repository;
     private final RestTemplate restTemplate;
 
-    @Value("${geoserver.host}")
-    private String geoserverHost;
+    @Value("${geoserver-configurator.host}")
+    private String geoserverConfiguratorHost;
 
-    @Value("${geoserver.port}")
-    private String geoserverPort;
+    @Value("${geoserver-configurator.port}")
+    private String geoserverConfiguratorPort;
 
-    private URI geoServerUrl = URI.create("http://" + geoserverHost + ":" + geoserverPort + "/geoserver/createOrRefreshSqlViewLayer");
-
-    
 
     public void publishAllSqlViewLayers() {
         List<SqlViewLayer> layers = repository.findAll();
-
+        URI Uri = URI.create("http://" + geoserverConfiguratorHost + ":" + geoserverConfiguratorPort + "/geoserver/createOrRefreshSqlViewLayer");
         for (SqlViewLayer layer : layers) {
             try {
                 SqlViewRequest request = new SqlViewRequest(layer.getLayerName(), layer.getSqlStatement());
                 HttpEntity<SqlViewRequest> entity = new HttpEntity<>(request);
-                ResponseEntity<String> response = restTemplate.postForEntity(geoServerUrl, entity, String.class);
+                ResponseEntity<String> response = restTemplate.postForEntity(Uri, entity, String.class);
                 System.out.println("Siker: " + response.getBody());
             } catch (Exception e) {
                 System.err.println("Hiba a " + layer.getLayerName() + " feldolgozása során: " + e.getMessage());

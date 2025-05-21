@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.palferi.kektura.kektura_geoserver_configurator.dto.SqlViewRequest;
 import hu.palferi.kektura.kektura_geoserver_configurator.service.GeoServerService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/geoserver")
@@ -38,7 +38,7 @@ public class GeoServerController {
         summary = "Publikus SQL nézet törlése",
         description = "A megadott névvel rendelkező SQL nézet törlése a GeoServerből."
     )
-    @DeleteMapping("/geoserver/dropIfExistsSqlViewLayer")
+    @DeleteMapping("/dropIfExistsSqlViewLayer")
     public ResponseEntity<String> dropIfExistsSqlViewLayer(@RequestParam String layerName) {
 
         try {
@@ -55,7 +55,7 @@ public class GeoServerController {
         description = "Az SQL lekérdezésnek kötelező tartalmaznia `id` és `geom` mezőket. "
                     + "A nézet a megadott néven kerül publikálásra."
     )
-    @PostMapping("/geoserver/createOrRefreshSqlViewLayer")
+    @PostMapping("/createOrRefreshSqlViewLayer")
     public ResponseEntity<String> createOrRefreshSqlViewLayer(
             @RequestBody SqlViewRequest request) {
 

@@ -173,16 +173,21 @@ public class GeoServerService {
 
             // FeatureType encoder beállítása
             GSFeatureTypeEncoder fte = new GSFeatureTypeEncoder();
+            System.out.println("Layer name: " + layerName);
+            System.out.println("SQL statement: " + sqlStatement);
             fte.setName(layerName);
             fte.setTitle(layerName);
             fte.setSRS("EPSG:4326");
             fte.setNativeName(layerName);
+            
 
             // VirtualTable encoder - csak az elérhető metódusokat használjuk
             GSVirtualTableEncoder vte = new GSVirtualTableEncoder();
             vte.setName(layerName);
             vte.setSql(sqlStatement);
-            // A geometriát nem tudjuk explicit megadni, ha nincs `addGeometry()` metódus
+            vte.addKeyColumn("id");
+            vte.addVirtualTableGeometry("geom", "Point", "4326");
+
 
             // Virtual table beállítása (ez a metódus elérhető szokott lenni)
             fte.setMetadataVirtualTable(vte);

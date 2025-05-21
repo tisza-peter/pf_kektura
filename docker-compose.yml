@@ -121,12 +121,12 @@ services:
 
 #OK
   geoserver-configurator:
+    container_name: kektura-geoserver-configurator
+#    profiles:
+#      - full
     build:
       context: ./kektura_geoserver_configurator
       dockerfile: ../docker/springboot/Dockerfile
-    container_name: kektura_geoserver_configurator
-#    profiles:
-#      - full
     ports:
       - "8085:8080"
     depends_on:
@@ -137,12 +137,12 @@ services:
 
 #OK
   control-center:
+    container_name: kektura-control-center
+#    profiles:
+#      - full
     build:
       context: ./kektura_control_center
       dockerfile: ../docker/springboot/Dockerfile
-    container_name: kektura_control_center
-#    profiles:
-#      - full
     ports:
       - "8084:8080"
     depends_on:
@@ -152,12 +152,12 @@ services:
 
 #OK
   kekturageodata-downloader:
+    container_name: kektura-kekturageodata-downloader
+#    profiles:
+#      - full
     build:
       context: ./kektura_kekturageodata_downloader
       dockerfile: ../docker/springboot/Dockerfile
-    container_name: kektura_kekturageodata_downloader
-#    profiles:
-#      - full
     ports:
       - "8086:8080"
     depends_on:
@@ -167,12 +167,12 @@ services:
 
 #OK
   volangeodata-downloader:
+    container_name: kektura-volangeodata-downloader
+#    profiles:
+#      - full
     build:
       context: ./kektura_volangeodata_downloader
       dockerfile: ../docker/springboot/Dockerfile
-    container_name: kektura_volangeodata_downloader
-#    profiles:
-#      - full
     ports:
       - "8087:8080"
     depends_on:
@@ -182,12 +182,12 @@ services:
 
 #OK
   web-scraper:
-    build:
-      context: ./web_scraper
-      dockerfile: Dockerfile
     container_name: web-scraper
 #    profiles:
 #      - full
+    build:
+      context: ./web_scraper
+      dockerfile: Dockerfile
     depends_on:
       - eureka-server
     networks:
@@ -197,12 +197,12 @@ services:
 
 #OK
   gateway:
-    build:
-      context: ./kektura_gateway
-      dockerfile: ../docker/springboot/Dockerfile
     container_name: kektura-gateway
     profiles:
       - full
+    build:
+      context: ./kektura_gateway
+      dockerfile: ../docker/springboot/Dockerfile
     ports:
       - "8083:8080"
     depends_on:
@@ -211,11 +211,11 @@ services:
       - kektura-network
 
   cucumber:
-    build:
-      context: ./docker/cucumber
     container_name: cucumber-tests
     profiles:
       - full
+    build:
+      context: ./docker/cucumber
     depends_on:
       - backend
     networks:
@@ -223,10 +223,10 @@ services:
 
 #OK
   zabbix-db:
-    image: postgres:16
     container_name: zabbix-db
     profiles:
       - full
+    image: postgres:16
     environment:
       POSTGRES_USER: zabbix
       POSTGRES_PASSWORD: zabbix
