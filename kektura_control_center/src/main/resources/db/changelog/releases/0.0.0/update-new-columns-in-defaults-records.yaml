@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: update-geoserver-layer-defaults
+      author: te
+      changes:
+        - sql:
+            sql: |
+              UPDATE geoserver.sql_view_layer SET z_index = id, min_zoom = 15, max_zoom = 22 WHERE layer_name = 'unique_stops';
+              UPDATE geoserver.sql_view_layer SET z_index = id, min_zoom = 0, max_zoom = 14 WHERE layer_name = 'united_stops';
+              UPDATE geoserver.sql_view_layer SET z_index = id, min_zoom = 0, max_zoom = 22 WHERE layer_name = 'routes';

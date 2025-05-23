@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.palferi.kektura.kektura_volangeodata_downloader.service.SchemaSwitcherService;
 
 @RestController
-@RequestMapping("/admin/schema-switch")
+@RequestMapping("/api/schema-switch")
 public class SchemaSwitcherController {
 
     @Autowired

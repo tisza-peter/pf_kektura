@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-columns-to-geoserver-layers
+      author: te
+      changes:
+        - addColumn:
+            tableName: sql_view_layer
+            schemaName: geoserver
+            columns:
+              - column:
+                  name: opacity
+                  type: double
+                  defaultValueNumeric: 1.0
+              - column:
+                  name: z_index
+                  type: int
+              - column:
+                  name: min_zoom
+                  type: int
+                  defaultValueNumeric: 0
+              - column:
+                  name: max_zoom
+                  type: int
+                  defaultValueNumeric: 22

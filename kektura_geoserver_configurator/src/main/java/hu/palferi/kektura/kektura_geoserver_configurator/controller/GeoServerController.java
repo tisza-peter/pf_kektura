@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.palferi.kektura.kektura_geoserver_configurator.dto.SqlViewRequest;
+import hu.palferi.kektura.kektura_geoserver_configurator.dto.SqlViewDTO;
 import hu.palferi.kektura.kektura_geoserver_configurator.service.GeoServerService;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -55,14 +55,16 @@ public class GeoServerController {
         description = "Az SQL lekérdezésnek kötelező tartalmaznia `id` és `geom` mezőket. "
                     + "A nézet a megadott néven kerül publikálásra."
     )
-    @PostMapping("/createOrRefreshSqlViewLayer")
-    public ResponseEntity<String> createOrRefreshSqlViewLayer(
-            @RequestBody SqlViewRequest request) {
+    @PostMapping("/CreateOrRefreshAndPublishSqlViewLayer")
+    public ResponseEntity<String> CreateOrRefreshAndPublishSqlViewLayer(
+            @RequestBody SqlViewDTO request) {
 
         try {
-            geoServerService.CreateOrRefreshPublicSqlViewLayer(
+            geoServerService.CreateOrRefreshAndPublishSqlViewLayer(
+                request.getStoreName(),
                 request.getLayerName(),
                 request.getSqlStatement()
+
             );
             return ResponseEntity.ok("Layer létrehozva/frissítve: " + request.getLayerName());
         } catch (Exception e) {

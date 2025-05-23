@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "sql_view_layer", schema = "geoserver")
-public class SqlViewLayer {
+public class SqlViewLayerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +31,20 @@ public class SqlViewLayer {
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdate;
 
-    @Column(name = "last_execution")
+    @Column(name = "last_execution", nullable = true)
     private LocalDateTime lastExecution;
+
+    @Column(name = "opacity", nullable = false)
+    private Double opacity;
+
+    @Column(name = "z_index", nullable = false)
+    private Integer zIndex;
+
+    @Column(name = "min_zoom", nullable = false)
+    private Integer minZoom;
+
+    @Column(name = "max_zoom", nullable = false)
+    private Integer maxZoom;
+
+
 }

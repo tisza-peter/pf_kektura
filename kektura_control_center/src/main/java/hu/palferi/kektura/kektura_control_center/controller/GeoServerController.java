@@ -5,19 +5,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.palferi.kektura.kektura_control_center.service.SqlViewLayerService;
+import hu.palferi.kektura.kektura_control_center.service.GeoServerService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/internal")
+@RequestMapping("/api/geoserver")
 @RequiredArgsConstructor
-public class SqlViewLayerController {
+public class GeoServerController {
 
-    private final SqlViewLayerService service;
+    private final GeoServerService geoServerService;
 
     @PostMapping("/publishAllSqlViewLayers")
     public ResponseEntity<String> publishAll() {
-        service.publishAllSqlViewLayers();
+        geoServerService.publishAllSqlViewLayers();
         return ResponseEntity.ok("Minden SQL View Layer publikálása elindult.");
     }
+
+
+
 }

@@ -53,7 +53,7 @@ public class GeoServerService {
     private String volanDbPassword;
 
     @Value("${volan.store.name}")
-    private String storeName;
+    private String volanStoreName;
 
     @PostConstruct
     public void init() throws Exception {
@@ -71,7 +71,7 @@ public class GeoServerService {
             geoServerManager.getPublisher().createWorkspace(workspaceName);
         }
         setDefaultWorkspace(workspaceName);
-        createOrUpdatePgStore(workspaceName, storeName, volanDbHost, volanDbPort, volanDbDatabaseName, volanDbUser, volanDbPassword);
+        createOrUpdatePgStore(workspaceName, volanStoreName, volanDbHost, volanDbPort, volanDbDatabaseName, volanDbUser, volanDbPassword);
         
         return true;
     }
@@ -125,7 +125,7 @@ public class GeoServerService {
         }
     }
 
-    public void CreateOrRefreshPublicSqlViewLayer(String layerName, String sqlStatement)
+    public void CreateOrRefreshAndPublishSqlViewLayer(String storeName, String layerName, String sqlStatement)
     {
         DropIfExistsAndCreateAndPublishPostgresSqlViewLayer(workspaceName, storeName, layerName, sqlStatement);
     }

@@ -9,4 +9,9 @@ databaseChangeLog:
   - include:
       file: insert-default-sqlview-layers-to-volan.yaml
       relativeToChangelogFile: true
-
+  - include:
+      file: add-columns-to-sqlview-layers.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: update-new-columns-in-defaults-records.yaml
+      relativeToChangelogFile: true
