@@ -11,7 +11,6 @@ import hu.palferi.kektura.kektura_control_center.dto.OpenLayersLayerDefinitionDT
 import hu.palferi.kektura.kektura_control_center.dtoMapper.OpenLayersLayerDefinitionDTOMapper;
 import hu.palferi.kektura.kektura_control_center.entity.SqlViewLayerEntity;
 import hu.palferi.kektura.kektura_control_center.entityMapper.OpenLayersLayerDefinitionEntityMapper;
-import hu.palferi.kektura.kektura_control_center.enums.MapServiceType;
 import hu.palferi.kektura.kektura_control_center.repository.SqlViewLayerRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +29,7 @@ public List<OpenLayersLayerDefinitionDTO> getAllLayers() {
     List<OpenLayersLayerDefinitionDTO> result = new ArrayList<>();
 
     for (SqlViewLayerEntity entity : entities) {
-        OpenLayersLayerDefinitionBO bo = entityMapper.fromEntity(entity, workspaceName, MapServiceType.WFS);
+        OpenLayersLayerDefinitionBO bo = entityMapper.fromEntity(entity, workspaceName);
         OpenLayersLayerDefinitionDTO dto = dtoMapper.toDTO(bo);
         result.add(dto);
     }

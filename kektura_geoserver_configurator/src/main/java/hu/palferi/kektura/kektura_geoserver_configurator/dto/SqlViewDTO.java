@@ -31,5 +31,24 @@ public class SqlViewDTO {
     )
     private String sqlStatement;
 
+    @Schema(
+        description = "Az SLD stílus neve, amelyet a réteghez alkalmazni kell.",
+        required = false,
+        example = "my_style"
+    )
+    private String sldStyleName;
+
+    @Schema(
+        description = "A geometria típusa (pl. Point, LineString, Polygon).",
+        required = true,
+        example = "Polygon"
+    )
+    private String geometryType;
+    @Schema(
+        description = "A geometria SRID-je (Spatial Reference Identifier).",
+        required = true,
+        example = "4326"
+    )
+    private Integer geometrySrid;
 
 }

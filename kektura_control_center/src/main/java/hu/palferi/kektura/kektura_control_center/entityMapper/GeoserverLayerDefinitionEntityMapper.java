@@ -17,6 +17,9 @@ public class GeoserverLayerDefinitionEntityMapper {
         bo.setSqlStatement(entity.getSqlStatement());
         bo.setLastUpdate(entity.getLastUpdate());
         bo.setLastExecution(entity.getLastExecution());
+        bo.setSldStyleName(entity.getSldStyleName());
+        bo.setGeometryType(entity.getGeometryType());
+        bo.setGeometrySrid(entity.getGeometrySrid());
         return bo;
     }
 }

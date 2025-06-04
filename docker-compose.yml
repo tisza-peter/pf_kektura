@@ -198,8 +198,8 @@ services:
 #OK
   gateway:
     container_name: kektura-gateway
-    profiles:
-      - full
+#    profiles:
+#      - full
     build:
       context: ./kektura_gateway
       dockerfile: ../docker/springboot/Dockerfile

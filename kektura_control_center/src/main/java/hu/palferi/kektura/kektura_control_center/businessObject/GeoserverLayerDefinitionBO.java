@@ -13,5 +13,7 @@ public class GeoserverLayerDefinitionBO {
     private String sqlStatement;
     private LocalDateTime lastUpdate;
     private LocalDateTime lastExecution;
-
+    private String sldStyleName;
+    private String geometryType;
+    private Integer geometrySrid;
 }

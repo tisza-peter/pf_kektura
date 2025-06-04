@@ -2,8 +2,14 @@ package hu.palferi.kektura.kektura_control_center.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import hu.palferi.kektura.kektura_control_center.enums.MapServiceType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,5 +52,21 @@ public class SqlViewLayerEntity {
     @Column(name = "max_zoom", nullable = false)
     private Integer maxZoom;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sercice_type", nullable = true)
+    private MapServiceType serviceType;
+
+    @Column(name = "sld_style_name", nullable = true)
+    private String sldStyleName;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "ol_style_json", columnDefinition = "json", nullable = true)
+    private String olStyleJson;
+
+    @Column(name = "geometry_type", nullable = true)
+    private String geometryType;
+    
+    @Column(name = "geometry_srid", nullable = true)
+    private Integer geometrySrid;
 
 }

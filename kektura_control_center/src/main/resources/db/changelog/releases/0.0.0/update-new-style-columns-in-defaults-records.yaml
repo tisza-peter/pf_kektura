@@ -1,0 +1,134 @@
+databaseChangeLog:
+  - changeSet:
+      id: update-geoserver-layer-defaults
+      author: te
+      changes:
+        - sql:
+            sql: |
+              UPDATE geoserver.sql_view_layer SET sercice_type = 'WMS', sld_style_name = 'point', geometry_type = 'Point', geometry_srid = 4326 WHERE layer_name = 'unique_stops';
+              UPDATE geoserver.sql_view_layer SET sercice_type = 'WMS', sld_style_name = 'point', geometry_type = 'Point', geometry_srid = 4326 WHERE layer_name = 'united_stops';
+              UPDATE geoserver.sql_view_layer SET sercice_type = 'WMS', sld_style_name = 'line', geometry_type = 'LineString', geometry_srid = 4326 WHERE layer_name = 'routes';
+              UPDATE geoserver.sql_view_layer SET ol_style_json = '{
+                "point": {
+                  "image": {
+                    "type": "circle",
+                    "static_radius": 6,
+                    "attr_radius": null,
+                    "fill": {
+                      "static_color": "rgba(255, 0, 0, 0.7)",
+                      "attr_color": null
+                    },
+                    "stroke": {
+                      "static_color": "white",
+                      "attr_color": null,
+                      "static_width": 2,
+                      "attr_width": null
+                    }
+                  },
+                  "text": {
+                    "static_text": "Címke",
+                    "attr_text": null,
+                    "static_font": "bold 14px Calibri,sans-serif",
+                    "attr_font": null,
+                    "fill": {
+                      "static_color": "#000000",
+                      "attr_color": null
+                    },
+                    "stroke": {
+                      "static_color": "#ffffff",
+                      "attr_color": null,
+                      "static_width": 3,
+                      "attr_width": null
+                    },
+                    "static_offsetX": 0,
+                    "attr_offsetX": null,
+                    "static_offsetY": -15,
+                    "attr_offsetY": null,
+                    "static_textAlign": "center",
+                    "attr_textAlign": null
+                  },
+                  "static_zIndex": 10,
+                  "attr_zIndex": null
+                },
+                "line": {
+                  "stroke": {
+                    "static_color": "rgba(0, 0, 255, 0.7)",
+                    "attr_color": null,
+                    "static_width": 2,
+                    "attr_width": null,
+                    "static_lineDash": [4, 8],
+                    "attr_lineDash": null,
+                    "static_lineCap": "round",
+                    "attr_lineCap": null,
+                    "static_lineJoin": "bevel",
+                    "attr_lineJoin": null
+                  },
+                  "text": {
+                    "static_text": "Címke",
+                    "attr_text": null,
+                    "static_font": "bold 14px Calibri,sans-serif",
+                    "attr_font": null,
+                    "fill": {
+                      "static_color": "#000000",
+                      "attr_color": null
+                    },
+                    "stroke": {
+                      "static_color": "#ffffff",
+                      "attr_color": null,
+                      "static_width": 3,
+                      "attr_width": null
+                    },
+                    "static_offsetX": 0,
+                    "attr_offsetX": null,
+                    "static_offsetY": -15,
+                    "attr_offsetY": null,
+                    "static_textAlign": "center",
+                    "attr_textAlign": null
+                  },
+                  "static_zIndex": 10,
+                  "attr_zIndex": null
+                },
+                "polygon": {
+                  "stroke": {
+                    "static_color": "rgba(0, 0, 255, 0.7)",
+                    "attr_color": null,
+                    "static_width": 2,
+                    "attr_width": null,
+                    "static_lineDash": [4, 8],
+                    "attr_lineDash": null,
+                    "static_lineCap": "round",
+                    "attr_lineCap": null,
+                    "static_lineJoin": "bevel",
+                    "attr_lineJoin": null
+                  },
+                  "fill": {
+                    "static_color": "rgba(0, 255, 0, 0.3)",
+                    "attr_color": null
+                  },
+                  "text": {
+                    "static_text": "Címke",
+                    "attr_text": null,
+                    "static_font": "bold 14px Calibri,sans-serif",
+                    "attr_font": null,
+                    "fill": {
+                      "static_color": "#000000",
+                      "attr_color": null
+                    },
+                    "stroke": {
+                      "static_color": "#ffffff",
+                      "attr_color": null,
+                      "static_width": 3,
+                      "attr_width": null
+                    },
+                    "static_offsetX": 0,
+                    "attr_offsetX": null,
+                    "static_offsetY": -15,
+                    "attr_offsetY": null,
+                    "static_textAlign": "center",
+                    "attr_textAlign": null
+                  },
+                  "static_zIndex": 10,
+                  "attr_zIndex": null
+                }
+              }
+              ';

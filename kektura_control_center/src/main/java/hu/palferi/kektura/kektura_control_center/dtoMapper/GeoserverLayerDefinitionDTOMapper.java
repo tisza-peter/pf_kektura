@@ -13,6 +13,9 @@ public class GeoserverLayerDefinitionDTOMapper {
         dto.setStoreName(bo.getStoreName());
         dto.setLayerName(bo.getLayerName());
         dto.setSqlStatement(bo.getSqlStatement());
+        dto.setSldStyleName(bo.getSldStyleName());
+        dto.setGeometryType(bo.getGeometryType());
+        dto.setGeometrySrid(bo.getGeometrySrid());
         return dto;
     }
 
@@ -21,6 +24,9 @@ public class GeoserverLayerDefinitionDTOMapper {
         bo.setStoreName(dto.getStoreName());
         bo.setLayerName(dto.getLayerName());
         bo.setSqlStatement(dto.getSqlStatement());
+        bo.setSldStyleName(dto.getSldStyleName());
+        bo.setGeometryType(dto.getGeometryType());
+        bo.setGeometrySrid(dto.getGeometrySrid());
         return bo;
     }
 }

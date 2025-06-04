@@ -125,9 +125,9 @@ public class GeoServerService {
         }
     }
 
-    public void CreateOrRefreshAndPublishSqlViewLayer(String storeName, String layerName, String sqlStatement)
+    public void CreateOrRefreshAndPublishSqlViewLayer(String storeName, String layerName, String sqlStatement, String sldStyleName, String geometryType, Integer geometrySrid)
     {
-        DropIfExistsAndCreateAndPublishPostgresSqlViewLayer(workspaceName, storeName, layerName, sqlStatement);
+        DropIfExistsAndCreateAndPublishPostgresSqlViewLayer(workspaceName, storeName, layerName, sqlStatement, sldStyleName, geometryType, geometrySrid);
     }
 
     public Boolean dropIfExistsSqlViewLayer(String layerName)
@@ -165,8 +165,16 @@ public class GeoServerService {
             String workspace,
             String storeName,
             String layerName,
-            String sqlStatement
+            String sqlStatement,
+            String sldStyleName,
+            String geometryType,
+            Integer geometrySrid
+
     ) {
+            String geometryColumnName = "geom"; // Alapértelmezett geometria oszlop neve
+            String keyColumnName = "id"; // Alapértelmezett kulcs oszlop neve
+            String srs = "EPSG:" + Integer.toString(geometrySrid); // Alapértelmezett SRS
+
         try {
             // Réteg törlése, ha létezik
             DropIfExistsPostgresSqlViewLayer(workspace, layerName);
@@ -177,7 +185,7 @@ public class GeoServerService {
             System.out.println("SQL statement: " + sqlStatement);
             fte.setName(layerName);
             fte.setTitle(layerName);
-            fte.setSRS("EPSG:4326");
+            fte.setSRS(srs);
             fte.setNativeName(layerName);
             
 
@@ -185,8 +193,8 @@ public class GeoServerService {
             GSVirtualTableEncoder vte = new GSVirtualTableEncoder();
             vte.setName(layerName);
             vte.setSql(sqlStatement);
-            vte.addKeyColumn("id");
-            vte.addVirtualTableGeometry("geom", "Point", "4326");
+            vte.addKeyColumn(keyColumnName);
+            vte.addVirtualTableGeometry(geometryColumnName, geometryType, Integer.toString(geometrySrid));
 
 
             // Virtual table beállítása (ez a metódus elérhető szokott lenni)
@@ -194,8 +202,7 @@ public class GeoServerService {
 
             // Layer encoder – szükséges, mert `publishDBLayer()` négy paramétert vár
             GSLayerEncoder layerEncoder = new GSLayerEncoder();
-            layerEncoder.setDefaultStyle("default"); // vagy saját stílus
-
+            layerEncoder.setDefaultStyle(sldStyleName); // vagy saját stílus
             // Réteg publikálása
             boolean published = geoServerManager.getPublisher()
                 .publishDBLayer(workspace, storeName, fte, layerEncoder);

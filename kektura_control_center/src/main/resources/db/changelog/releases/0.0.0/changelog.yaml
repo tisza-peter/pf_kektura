@@ -15,3 +15,9 @@ databaseChangeLog:
   - include:
       file: update-new-columns-in-defaults-records.yaml
       relativeToChangelogFile: true
+  - include:
+      file: add-style-columns-to-sqlview-layers.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: update-new-style-columns-in-defaults-records.yaml
+      relativeToChangelogFile: true

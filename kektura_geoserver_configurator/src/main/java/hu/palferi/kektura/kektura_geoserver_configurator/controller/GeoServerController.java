@@ -63,7 +63,10 @@ public class GeoServerController {
             geoServerService.CreateOrRefreshAndPublishSqlViewLayer(
                 request.getStoreName(),
                 request.getLayerName(),
-                request.getSqlStatement()
+                request.getSqlStatement(),
+                request.getSldStyleName(),
+                request.getGeometryType(),
+                request.getGeometrySrid()
 
             );
             return ResponseEntity.ok("Layer létrehozva/frissítve: " + request.getLayerName());

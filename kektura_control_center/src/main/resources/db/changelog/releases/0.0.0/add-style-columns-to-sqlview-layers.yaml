@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-style-columns-to-geoserver-layers
+      author: tiszapeter
+      changes:
+        - addColumn:
+            tableName: sql_view_layer
+            schemaName: geoserver
+            columns:
+              - column:
+                  name: sercice_type
+                  type: VARCHAR(4)
+              - column:
+                  name: sld_style_name
+                  type: VARCHAR(255)
+              - column:
+                  name: ol_style_json
+                  type: json
+              - column:
+                  name: sld_style_xml
+                  type: XML
+              - column:
+                  name: geometry_type
+                  type: VARCHAR(20)
+              - column:
+                  name: geometry_srid
+                  type: int
+              

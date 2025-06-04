@@ -17,6 +17,8 @@ public class OpenLayersLayerDefinitionDTOMapper {
         dto.setZIndex(bo.getZIndex());
         dto.setMinZoom(bo.getMinZoom());
         dto.setMaxZoom(bo.getMaxZoom());
+        dto.setSldStyleName(bo.getSldStyleName());
+        dto.setOlStyleJson(bo.getOlStyleJson());
         return dto;
     }
 
@@ -29,6 +31,8 @@ public class OpenLayersLayerDefinitionDTOMapper {
         bo.setZIndex(dto.getZIndex());
         bo.setMinZoom(dto.getMinZoom());
         bo.setMaxZoom(dto.getMaxZoom());
+        bo.setSldStyleName(dto.getSldStyleName());
+        bo.setOlStyleJson(dto.getOlStyleJson());
         return bo;
     }
 }

@@ -37,7 +37,8 @@ public class GeoServerService {
 
     public void publishAllSqlViewLayers() {
         List<SqlViewLayerEntity> layerEntities = repository.findAll();
-        URI Uri = URI.create("http://" + geoserverConfiguratorHost + ":" + geoserverConfiguratorPort + "/geoserver/createOrRefreshSqlViewLayer");
+        URI Uri = URI.create("http://" + geoserverConfiguratorHost + ":" + geoserverConfiguratorPort + "/geoserver/CreateOrRefreshAndPublishSqlViewLayer");
+                                                                                                                      
         for (SqlViewLayerEntity layerEntity : layerEntities) {
             try {
                 GeoserverLayerDefinitionBO geoserverLayerDefinitionBO = GeoserverLayerDefinitionEntityMapper.fromEntity(layerEntity, workspaceName);

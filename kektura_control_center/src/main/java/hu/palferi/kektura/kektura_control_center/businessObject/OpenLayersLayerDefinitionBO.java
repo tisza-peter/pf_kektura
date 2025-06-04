@@ -14,4 +14,6 @@ public class OpenLayersLayerDefinitionBO {
     private Integer zIndex;
     private Integer minZoom;
     private Integer maxZoom;
+    private String sldStyleName;
+    private String olStyleJson;
 }

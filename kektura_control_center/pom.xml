@@ -87,6 +87,12 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-60</artifactId> <!-- vagy hibernate-types-52 ha JPA 2.2 -->
+            <version>2.21.1</version> <!-- legfrissebb verzió -->
+        </dependency>
         
 	</dependencies>
 
